@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_colors.dart';
 import '../../providers/donut_provider.dart';
+import '../../widgets/app_loading.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -173,7 +174,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             );
           },
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const AppLoading(),
         error: (_, __) => const SizedBox(),
       ),
     );
@@ -226,7 +227,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         )).toList(),
       ),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const AppLoading(),
       error: (_, __) => const SizedBox(),
     );
   }

@@ -8,6 +8,7 @@ import '../../providers/order_provider.dart';
 import '../../providers/auth_provider.dart';
 import '../auth/login_modal.dart';
 import 'order_details_page.dart';
+import '../../widgets/app_loading.dart';
 
 class MyOrdersPage extends ConsumerWidget {
   const MyOrdersPage({super.key});
@@ -40,11 +41,11 @@ class MyOrdersPage extends ConsumerWidget {
                 ),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator(color: AppColors.accent)),
+            loading: () => const AppLoading(),
             error: (err, stack) => _buildErrorView(ref, err.toString()),
           );
         },
-        loading: () => const Center(child: CircularProgressIndicator(color: AppColors.accent)),
+        loading: () => const AppLoading(),
         error: (err, stack) => _buildErrorView(ref, err.toString()),
       ),
     );

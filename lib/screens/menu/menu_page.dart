@@ -6,6 +6,7 @@ import '../../core/constants/app_colors.dart';
 import '../../providers/donut_provider.dart';
 import '../../providers/cart_provider.dart';
 import '../../widgets/donut_card.dart';
+import '../../widgets/app_loading.dart';
 import 'donut_detail_modal.dart';
 
 class MenuPage extends ConsumerStatefulWidget {
@@ -138,7 +139,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                   },
                 );
               },
-              loading: () => const Center(child: CircularProgressIndicator(color: AppColors.accent)),
+              loading: () => const AppLoading(),
               error: (err, stack) => Center(child: Text('Error: $err')),
             ),
           ),

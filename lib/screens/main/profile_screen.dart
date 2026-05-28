@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_colors.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/app_loading.dart';
 import '../auth/login_modal.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -25,7 +26,7 @@ class ProfileScreen extends ConsumerWidget {
           if (user == null) return _buildLoginView(context);
           return _buildProfileView(context, ref, user);
         },
-        loading: () => const Center(child: CircularProgressIndicator(color: AppColors.accent)),
+        loading: () => const AppLoading(),
         error: (err, stack) => _buildErrorView(ref),
       ),
     );

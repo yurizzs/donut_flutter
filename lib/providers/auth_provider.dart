@@ -68,6 +68,32 @@ class AuthNotifier extends AsyncNotifier<UserModel?> {
     }
   }
 
+  Future<void> register(Map<String, dynamic> data, {String? imagePath}) async {
+    state = const AsyncValue.loading();
+    try {
+      final response = await _authService.register(data, imagePath: imagePath);
+      
+      // If the API returns a token/user structure after registration
+      if (response.containsKey('token')) {
+        final token = response['token'];
+        final user = UserModel.fromJson(response['user']);
+        await _storage.saveToken(token);
+        state = AsyncValue.data(user);
+      } else {
+        // If registration doesn't auto-login, we use credentials to login
+        // Note: React uses 'username', but login uses 'email'. 
+        // We'll try login with whatever was passed as username/email.
+        await login(data['email'] ?? data['username'], data['password']);
+      }
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['message'] ?? 
+                                  "Registration failed. Please check your details.";
+      state = AsyncValue.error(errorMessage, StackTrace.current);
+    } catch (e, stack) {
+      state = AsyncValue.error("An unexpected error occurred.", stack);
+    }
+  }
+
   Future<void> logout() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {

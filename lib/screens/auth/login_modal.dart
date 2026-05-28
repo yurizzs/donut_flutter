@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_colors.dart';
 import '../../providers/auth_provider.dart';
+import '../../widgets/app_loading.dart';
+import 'register_modal.dart';
 
 class LoginModal extends ConsumerStatefulWidget {
   const LoginModal({super.key});
@@ -98,9 +100,20 @@ class _LoginModalState extends ConsumerState<LoginModal> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: isLoading
-                      ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                      ? const DonutSpinner(size: 20)
                       : Text('LOGIN', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
                 ),
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (context) => const RegisterModal(),
+                  );
+                },
+                child: const Text('Don\'t have an account? Register'),
               ),
             ],
           ),

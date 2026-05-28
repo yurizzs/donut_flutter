@@ -56,21 +56,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           builder: (context, child) {
             return Transform.translate(
               offset: Offset(0, _animation.value),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const AppLogo(size: 60),
-                  const SizedBox(width: 12),
-                  Text(
-                    'Doughlicious',
-                    style: GoogleFonts.poppins(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primaryText,
-                    ),
-                  ),
-                ],
-              ),
+              child: const AppLogo(size: 250),
             );
           },
         ),

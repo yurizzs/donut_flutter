@@ -22,6 +22,29 @@ class AuthService {
     }
   }
 
+  Future<Map<String, dynamic>> register(Map<String, dynamic> data, {String? imagePath}) async {
+    try {
+      dynamic payload;
+      
+      if (imagePath != null) {
+        payload = FormData.fromMap({
+          ...data,
+          'add_user_profile_picture': await MultipartFile.fromFile(imagePath),
+        });
+      } else {
+        payload = data;
+      }
+
+      final response = await _dio.post(
+        ApiConstants.register,
+        data: payload,
+      );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<UserModel> getMe() async {
     try {
       final response = await _dio.get(ApiConstants.user);
